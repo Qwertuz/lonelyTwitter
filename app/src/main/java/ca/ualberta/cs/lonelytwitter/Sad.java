@@ -20,4 +20,6 @@ public class Sad extends Mood{
     public Date getDate() {
         return date;
     }
+
+    public String EmoteS(){return "Sad";}
 }

@@ -21,4 +21,6 @@ public class Happy extends Mood {
         return date;
     }
 
+    public String EmoteH(){return "Happy";}
+
 }
