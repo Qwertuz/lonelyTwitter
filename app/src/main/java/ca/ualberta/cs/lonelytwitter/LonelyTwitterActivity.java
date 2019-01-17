@@ -65,6 +65,7 @@ public class LonelyTwitterActivity extends Activity {
 		        oldTweetsList.setAdapter(null);
 
 
+
             }
         });
 	}
@@ -116,6 +117,7 @@ public class LonelyTwitterActivity extends Activity {
 			FileWriter out = new FileWriter(new File(getFilesDir(),FILENAME));
 			Gson gson = new Gson();
 			gson.toJson(tweetlist, out);
+			out.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
