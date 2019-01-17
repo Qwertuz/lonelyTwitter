@@ -63,9 +63,8 @@ public class LonelyTwitterActivity extends Activity {
 		        setResult(RESULT_OK);
 		        //following code borrowed from https://stackoverflow.com/questions/3802304/clear-listview-content on the 16th of January, 2019
 		        oldTweetsList.setAdapter(null);
-
-
-
+                tweetlist.clear();
+                saveInFile();
             }
         });
 	}
