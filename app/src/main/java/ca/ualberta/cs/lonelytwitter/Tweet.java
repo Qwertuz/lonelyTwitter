@@ -24,5 +24,10 @@ public abstract class Tweet {
     }
 
     public abstract String getSomething();
+
+    @Override
+    public String toString(){
+        return message;
+    }
 }
 
