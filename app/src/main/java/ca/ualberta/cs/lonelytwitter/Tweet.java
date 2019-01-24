@@ -27,12 +27,13 @@ import java.util.Date;
  */
 
 public abstract class Tweet {
-    String message;
-    String message2;
-    Date date;
+    String message;       //main message of the tweet
+    String message2;      //secondary message of the tweet
+    Date date;            //date the Tweet was created
 
     /**
-     *
+     * Initializes date to a null value and leaves message blank
+     * @since 1.0
      */
 
     public void Tweet() {
@@ -47,6 +48,7 @@ public abstract class Tweet {
      */
 
     public void setMessage(String tweetm) {
+
         message = tweetm;
     }
 
@@ -57,6 +59,7 @@ public abstract class Tweet {
      */
 
     public String getMessage() {
+
         return message;
     }
 
@@ -67,22 +70,19 @@ public abstract class Tweet {
      */
 
     public Date getDate(){
+
         return date;
     }
 
     /**
-     *
-     */
-
-    public abstract String getSomething();
-
-    /**
-     *
+     * Turns the Tweet object into a string by returning the message held in it
      * @return message
+     * @since 1.0
      */
 
     @Override
     public String toString() {
+
         return message;
     }
 }

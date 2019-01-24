@@ -1,3 +1,13 @@
+/*
+ * Copyright 2019 TEAM 07
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
@@ -24,6 +34,17 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+/**
+ *  The basic functionally and design of the lonely twitter app
+ *
+ * @author cjmiller
+ * @version 1.0
+ * @see importantTweet
+ * @see Tweet
+ * @since 1.0
+ *
+ */
 /*
  *
  * LonelyTwitterActivity
@@ -42,7 +63,12 @@ public class LonelyTwitterActivity extends Activity {
 	private ListView oldTweetsList;
 	private ArrayList<importantTweet> tweetlist = new ArrayList<importantTweet>();
 	private ArrayAdapter<importantTweet> adapter;
-	/** Called when the activity is first created. */
+	/** Called when the activity is first created. Creates the basic functionally of the layout as well as governing how the buttons work.
+     *
+     * @param savedInstanceState
+     * @since 1.0
+     *
+     */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,6 +105,11 @@ public class LonelyTwitterActivity extends Activity {
         });
 	}
 
+    /**
+     * Loads in the data when the app is resumed
+     *
+     * @since 1.0
+     */
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -89,6 +120,11 @@ public class LonelyTwitterActivity extends Activity {
 		oldTweetsList.setAdapter(adapter);
 	}
 
+    /**
+     * Retrieves the list of previous tweets when called from an external file
+     *
+     * @since 1.0
+     */
 	private void loadFromFile() {
 		//ArrayList<String> tweets = new ArrayList<String>();
 		try {
@@ -115,7 +151,11 @@ public class LonelyTwitterActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-	
+    /**
+     * Saves the list of previous tweets to an external file
+     *
+     * @since 1.0
+     */
 	private void saveInFile() {
 		try {
 
