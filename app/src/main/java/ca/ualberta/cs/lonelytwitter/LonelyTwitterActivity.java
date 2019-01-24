@@ -24,7 +24,17 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
+/*
+ *
+ * LonelyTwitterActivity
+ *
+ * Version: 1.3
+ *
+ * 23rd January, 2019
+ *
+ *
+ *
+ */
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file.sav";
