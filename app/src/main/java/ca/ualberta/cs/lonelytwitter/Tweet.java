@@ -31,15 +31,21 @@ public abstract class Tweet {
     String message2;      //secondary message of the tweet
     Date date;            //date the Tweet was created
 
+    public Tweet(String m) {
+        message = m;
+        date = null;
+    }
+
     /**
      * Initializes date to a null value and leaves message blank
      * @since 1.0
      */
 
-    public void Tweet() {
+    public Tweet() {
         message = "";
         date = null;
     }
+
 
     /**
      * Saves the parameter tweetm as message

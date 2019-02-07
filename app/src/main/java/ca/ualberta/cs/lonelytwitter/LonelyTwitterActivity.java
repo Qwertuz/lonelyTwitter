@@ -26,12 +26,20 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -57,12 +65,12 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class LonelyTwitterActivity extends Activity {
-
+    private static final String TAG = "LonelyTwitterActivity";
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-	private ArrayList<importantTweet> tweetlist = new ArrayList<importantTweet>();
-	private ArrayAdapter<importantTweet> adapter;
+	private ArrayList<NormalTweet> tweetlist = new ArrayList<NormalTweet>();
+	private ArrayAdapter<NormalTweet> adapter;
 	/** Called when the activity is first created. Creates the basic functionally of the layout as well as governing how the buttons work.
      *
      * @param savedInstanceState
@@ -73,6 +81,7 @@ public class LonelyTwitterActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		FirebaseApp.initializeApp(this);
 
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
@@ -84,7 +93,7 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
-				importantTweet tweet = new importantTweet();
+				NormalTweet tweet = new NormalTweet(text);
 				tweet.setMessage(text);
 				tweetlist.add(tweet);
 				adapter.notifyDataSetChanged();
@@ -115,9 +124,24 @@ public class LonelyTwitterActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		loadFromFile();
-		adapter = new ArrayAdapter<importantTweet>(this,
+		adapter = new ArrayAdapter<NormalTweet>(this,
 				R.layout.list_item, tweetlist);
 		oldTweetsList.setAdapter(adapter);
+		DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
+		myref.addValueEventListener(new ValueEventListener() {
+			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+				for(DataSnapshot data: dataSnapshot.getChildren()){
+					NormalTweet tweet = data.getValue(NormalTweet.class);
+					if(tweet != null){
+						Log.d(TAG, tweet.getMessage());
+					}
+				}
+			}
+
+			public void onCancelled(@NonNull DatabaseError databaseError) {
+
+			}
+		});
 	}
 
     /**
@@ -140,7 +164,7 @@ public class LonelyTwitterActivity extends Activity {
 			FileReader in = new FileReader(new File(getFilesDir(), FILENAME));
 			Gson gson = new Gson();
 			//following code taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt on the 16th of Janunary 2019
-			Type type = new TypeToken<ArrayList<importantTweet>>(){}.getType();
+			Type type = new TypeToken<ArrayList<NormalTweet>>(){}.getType();
 			tweetlist = gson.fromJson(in, type);
 
 		} catch (FileNotFoundException e) {
